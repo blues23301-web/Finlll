@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Loan Application</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#6a11cb,#2575fc);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    background:#fff;
+    width:100%;
+    max-width:450px;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    animation:fadeIn .8s ease;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo h1{
+    color:#2575fc;
+    font-size:30px;
+}
+
+.logo p{
+    color:#666;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    color:#333;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#2575fc;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    background:#2575fc;
+    color:white;
+    font-size:18px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#1257d4;
+}
+
+.features{
+    margin-top:20px;
+}
+
+.feature{
+    padding:10px;
+    background:#f5f7ff;
+    margin-bottom:8px;
+    border-radius:10px;
+}
+
+.telegram-btn{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    text-decoration:none;
+    background:#0088cc;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+}
+
+.referral{
+    margin-top:10px;
+    text-align:center;
+    color:#666;
+    font-size:14px;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<h1>Quick Loan</h1>
+<p>Fast approval within minutes</p>
+</div>
+
+<form id="loanForm">
+
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="name" required>
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<input type="tel" id="phone" required>
+</div>
+
+<div class="form-group">
+<label>Loan Amount</label>
+<input type="number" id="amount" required>
+</div>
+
+<div class="form-group">
+<label>Repayment Period</label>
+<select id="period">
+<option>1 Month</option>
+<option>3 Months</option>
+<option>6 Months</option>
+<option>12 Months</option>
+</select>
+</div>
+
+<button type="submit">
+Apply Now
+</button>
+
+</form>
+
+<div class="features">
+<div class="feature">✓ Fast Processing</div>
+<div class="feature">✓ Secure Application</div>
+<div class="feature">✓ Mobile Friendly</div>
+</div>
+
+<a href="https://t.me/miiixibot" class="telegram-btn">
+Chat on Telegram
+</a>
+
+<div class="referral" id="referralText"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const admin = params.get("admin");
+
+if(admin){
+    document.getElementById("referralText").innerHTML =
+    "Referral ID: " + admin;
+}
+
+document.getElementById("loanForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const data = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        amount: document.getElementById("amount").value,
+        period: document.getElementById("period").value,
+        admin: admin || "DIRECT"
+    };
+
+    localStorage.setItem(
+        "loanApplication",
+        JSON.stringify(data)
+    );
+
+    window.location.href =
+    "https://t.me/miiixibot";
+});
+
+</script>
+
+</body>
+</html>
